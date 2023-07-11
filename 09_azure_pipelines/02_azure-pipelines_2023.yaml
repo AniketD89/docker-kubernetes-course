@@ -19,7 +19,7 @@ parameters:
 - name: runCompletePipeline
   displayName: Run All Tasks ?
   type: boolean
-  default: false
+  default: true
 
 stages:
 - stage: Build
@@ -118,17 +118,6 @@ stages:
           
           docker push acrforakscluster1.azurecr.io/webapp:$(tag)
 
-    - task: AzureCLI@2
-      displayName: '[Optional] Build Container inside ACR'
-      enabled: ${{ parameters.runCompletePipeline}}
-      inputs:
-        azureSubscription: 'Pay-As-You-Go(36e5119a-ef0e-4643-a46a-4a137216c264)'
-        scriptType: 'bash'
-        scriptLocation: 'inlineScript'
-        inlineScript: |
-          az acr login -n acrforakscluster1
-          
-          az acr build -r acrforakscluster1 -t webapp:$(tag) app-dotnet
 
     - task: qetza.replacetokens.replacetokens-task.replacetokens@4
       displayName: Replace TAG in YAML Deployment
@@ -196,6 +185,8 @@ stages:
         configuration: '$(System.ArtifactsDirectory)/drop/manifest'
         secretType: 'dockerRegistry'
         containerRegistryType: 'Azure Container Registry'
+        azureSubscriptionEndpointForSecrets: 'Pay-As-You-Go(36e5119a-ef0e-4643-a46a-4a137216c264)'
+        azureContainerRegistry: 'acrforakscluster1.azurecr.io'
         checkLatest: true
 
   - job: Test

@@ -187,6 +187,7 @@ stages:
         containerRegistryType: 'Azure Container Registry'
         azureSubscriptionEndpointForSecrets: 'Pay-As-You-Go(36e5119a-ef0e-4643-a46a-4a137216c264)'
         azureContainerRegistry: 'acrforakscluster1.azurecr.io'
+        secretName: 'acrsecret'
         checkLatest: true
 
   - job: Test

@@ -259,7 +259,6 @@ stages:
     steps:   
     - task: ManualValidation@0
       timeoutInMinutes: 1 # 1440 # task times out in 1 day
-      enabled: ${{ parameters.runCompletePipeline}}
       inputs:
         notifyUsers: 'aniket.p.deshmukh@gmail.com'
         instructions: |

@@ -19,7 +19,7 @@ parameters:
 - name: runCompletePipeline
   displayName: Run All Tasks ?
   type: boolean
-  default: true
+  default: false
 
 stages:
 - stage: Build
